@@ -31,3 +31,10 @@
         ]
 
     });
+
+
+function abrirModal(json) {
+
+    if (json !=)
+
+}

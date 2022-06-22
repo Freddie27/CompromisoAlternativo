@@ -16,15 +16,15 @@
 
         @*Boton Participantes*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row" id="FormModal">
+        <div class="row">
             <label class="col-2 " style="padding-top:18px;padding-bottom:18px;">Participantes</label>
             <div class="col-10 d-flex justify-content-around">
-                <button type="button" class="btn btn-outline-tertiary col-4" onclick="abrirModal(null)" data-toggle="modal" data-target="#modalRegisterForm">Externos</button>
+                <button type="button" class="btn btn-outline-tertiary col-4" onclick="abrirModal()">Externos</button>
 
 
                 @*Popup Externos*@
 
-                <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header text-center">
@@ -34,6 +34,8 @@
                                 </button>
                             </div>
                             <div class="modal-body mx-3">
+                                @* TXT ID PARA FILTRADO DE CREACION O EDICION *@
+                                @*<input id="txtId" type="hidden" value="0" />*@
                                 <div class="form-group">
 
                                         <div class="col-md-10">
@@ -62,7 +64,7 @@
                                         </div>
                                     </div>
                                 <div class="modal-footer d-flex justify-content-center">
-                                    <button type="submit" value="Registrar" class="btn btn-outline-secondary">Registrar</button>
+                                    <button type="button"  class="btn btn-outline-secondary" onclick="Guardar()">Registrar</button>
                                 </div>
                             </div>
                         </div>
@@ -200,16 +202,7 @@
 
         var tabladata;
 
-        jQuery.ajax({
-        url: '@Url.Action("ListarParticipantes", "Home")',
-        type: "GET",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        succes: function (data) {
-            console.log(data)
-        }
 
-        })
 
     tabladata = $("#tabla").DataTable({
         responsive: true,
@@ -241,25 +234,27 @@
     });
 
         function abrirModal(json) {
-
-            //$("#txtRut").val("");
-            //$("#txtNombre").val("");
-            //$("#txtFono").val("");
-            //$("#txtEmail").val("");
-            //$("#txtInstitucion").val("");
+          
+            $("#txtRut").val("");
+            $("#txtNombre").val("");
+            $("#txtFono").val("");
+            $("#txtEmail").val("");
+            $("#txtInstitucion").val("");
 
             if (json != null) {
-
-                $("#txtRut").val(json.PART_RUT);
-                //$("#txtNombre").val(json.PART_NOMBRE);
-                //$("#txtFono").val(json.PART_FONO);
-                //$("#txtEmail").val(json.PART_EMAIL);
-                //$("#txtInstitucion").val(json.PART_Institucion);
+            
+            $("#txtRut").val(json.PART_RUT);
+            $("#txtNombre").val(json.PART_NOMBRE);
+            $("#txtFono").val(json.PART_FONO);
+            $("#txtEmail").val(json.PART_EMAIL);
+            $("#txtInstitucion").val(json.PART_INSTITUCION);
             }
 
 
-            $("#FormModal").modal("show");
+         $("#modalParticipantes").modal("show");
         }
+
+        
 
         $("#tabla tbody").on("click", '.btn-editar', function () {
 
@@ -271,6 +266,18 @@
             abrirModal(data)
 
         })
+
+
+        function Guardar() {
+            var Participante = {
+                PART_RUT: $("txtRut").val(),
+                PART_NOMBRE: $("txtNombre").val(),
+                PART_FONO: $("txtFono").val(),
+                PART_EMAIL: $("txtEmail").val(),
+                PART_INSTITUCION: $("txtInstitucion").val()
+            }
+            tabladata.row.add(Participante).draw(false);
+        }
 
     </script>
 }
