@@ -13,5 +13,14 @@ namespace CompromisoAlternativo.Models
         {
             return objObjeto.ListarParticipantes();
         }
+
+
+        public bool AñadirPart(Participantes obj)
+        {
+            
+
+            return objObjeto.AñadirPart(obj);
+
+        }
     }
 }

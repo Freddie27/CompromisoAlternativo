@@ -58,18 +58,18 @@ namespace CompromisoAlternativo.Models
             return lista;
         }
 
-        public bool AñadirPart(Participantes smodel)
+        public bool AñadirPart(Participantes obj)
         {
             using (SqlConnection oconexion = new SqlConnection(ConexionBD.cn))
             {
                 SqlCommand cmd = new SqlCommand("agregarPart", oconexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@PART_RUT", smodel.PART_RUT);
-                cmd.Parameters.AddWithValue("@PART_NOMBRE", smodel.PART_NOMBRE);
-                cmd.Parameters.AddWithValue("@PART_FONO", smodel.PART_FONO);
-                cmd.Parameters.AddWithValue("@PART_EMAIL", smodel.PART_EMAIL);
-                cmd.Parameters.AddWithValue("@PART_INSTITUCION", smodel.PART_INSTITUCION);
+                cmd.Parameters.AddWithValue("@PART_RUT", obj.PART_RUT);
+                cmd.Parameters.AddWithValue("@PART_NOMBRE", obj.PART_NOMBRE);
+                cmd.Parameters.AddWithValue("@PART_FONO", obj.PART_FONO);
+                cmd.Parameters.AddWithValue("@PART_EMAIL", obj.PART_EMAIL);
+                cmd.Parameters.AddWithValue("@PART_INSTITUCION", obj.PART_INSTITUCION);
 
 
                 oconexion.Open();

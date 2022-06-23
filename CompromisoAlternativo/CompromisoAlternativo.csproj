@@ -122,9 +122,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CN_Funcionario.cs" />
     <Compile Include="Models\CN_Participantes.cs" />
     <Compile Include="Models\ConexionBD.cs" />
+    <Compile Include="Models\CRUD_Funcionario.cs" />
     <Compile Include="Models\CRUD_Participantes.cs" />
+    <Compile Include="Models\Funcionario_test.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Participantes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,6 +299,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Autcompletar.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\semanticui.scss" />

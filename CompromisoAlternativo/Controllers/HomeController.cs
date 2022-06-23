@@ -70,9 +70,28 @@ namespace CompromisoAlternativo.Controllers
 
             return Json(new { data = olista }, JsonRequestBehavior.AllowGet);
         }
+        //INTENTO DE AGREGAR PARTICIPANTES EXTERNOS
+        [HttpGet]
+        public JsonResult AñadirPart(Participantes objeto)
+        {
+            object resultado;
+            resultado = new CN_Participantes().AñadirPart(objeto);
 
 
-        //AGREGAR PARTICIPANTES EXTERNOS
+            return Json(new { resultado = resultado }, JsonRequestBehavior.AllowGet);
+        }
+
+        //INTENTO GENERAR ARRAY FUNCIONARIO
+        [HttpGet]
+        public JsonResult ListarFuncionario()
+        {
+            List<Funcionario_test> olista = new List<Funcionario_test>();
+
+            olista = new CN_Funcionario().ListarFuncionario();
+
+            return Json(new { data = olista }, JsonRequestBehavior.AllowGet);
+        }
+       
 
     }
 }

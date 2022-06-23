@@ -40,7 +40,7 @@
 
                                         <div class="col-md-10">
                                             <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                            <input type="text" class="form-control" id="txtRut" placeholder="99.999.999-9">
+                                            <input type="text" class="form-control" id="txtRut" value="test" placeholder="99.999.999-9">
                                         </div>
 
                                         <div class="col-md-10">
@@ -195,7 +195,7 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
+<script src="~/Scripts/Autcompletar.js"></script>
 
 @section scripts{
     <script>
@@ -234,7 +234,6 @@
     });
 
         function abrirModal(json) {
-          
             $("#txtRut").val("");
             $("#txtNombre").val("");
             $("#txtFono").val("");
@@ -242,7 +241,6 @@
             $("#txtInstitucion").val("");
 
             if (json != null) {
-            
             $("#txtRut").val(json.PART_RUT);
             $("#txtNombre").val(json.PART_NOMBRE);
             $("#txtFono").val(json.PART_FONO);
@@ -275,8 +273,29 @@
                 PART_FONO: $("txtFono").val(),
                 PART_EMAIL: $("txtEmail").val(),
                 PART_INSTITUCION: $("txtInstitucion").val()
+                
             }
-            tabladata.row.add(Participante).draw(false);
+            
+            
+            jQuery.ajax({
+                url: '@Url.Action("AñadirPart","Home")',
+                type: "POST",
+                data: JSON.stringify({objeto:Usuario}),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    tabladata.row.add(Participante).draw(false);
+                },
+                error: function (error) {
+                    console.log(error)
+
+                },
+                beforeSend: function () {
+
+                },
+            });
+            
+            
         }
 
     </script>
