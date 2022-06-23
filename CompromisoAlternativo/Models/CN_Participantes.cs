@@ -15,11 +15,13 @@ namespace CompromisoAlternativo.Models
         }
 
 
-        public bool AñadirPart(Participantes obj)
+        public int AñadirPart(Participantes obj, out string Mensaje)
         {
-            
+            if(string.IsNullOrEmpty(obj.PART_RUT) || string.IsNullOrWhiteSpace(obj.PART_RUT)) {
+                Mensaje = "El rut del usuario no puede ser vacío";
+            }
 
-            return objObjeto.AñadirPart(obj);
+            return objObjeto.AñadirPart(obj, out Mensaje);
 
         }
     }

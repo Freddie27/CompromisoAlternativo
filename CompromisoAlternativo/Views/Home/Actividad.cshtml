@@ -35,12 +35,12 @@
                             </div>
                             <div class="modal-body mx-3">
                                 @* TXT ID PARA FILTRADO DE CREACION O EDICION *@
-                                @*<input id="txtId" type="hidden" value="0" />*@
+                                <input id="txtId" type="text" value="0" />
                                 <div class="form-group">
 
                                         <div class="col-md-10">
                                             <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                            <input type="text" class="form-control" id="txtRut" value="test" placeholder="99.999.999-9">
+                                            <input type="text" class="form-control" id="txtRut" placeholder="99.999.999-9">
                                         </div>
 
                                         <div class="col-md-10">
@@ -234,6 +234,8 @@
     });
 
         function abrirModal(json) {
+
+            $("#txtId").val(0);
             $("#txtRut").val("");
             $("#txtNombre").val("");
             $("#txtFono").val("");
@@ -241,6 +243,7 @@
             $("#txtInstitucion").val("");
 
             if (json != null) {
+            $("#txtId").val(json.PART_RUT);
             $("#txtRut").val(json.PART_RUT);
             $("#txtNombre").val(json.PART_NOMBRE);
             $("#txtFono").val(json.PART_FONO);
@@ -265,8 +268,30 @@
 
         })
 
-
+        
         function Guardar() {
+            var Participante = {
+              
+                PART_RUT: $("txtRut").val(),
+                PART_NOMBRE: $("txtNombre").val(),
+                PART_FONO: $("txtFono").val(),
+                PART_EMAIL: $("txtEmail").val(),
+                PART_INSTITUCION: $("txtInstitucion").val()
+
+            }
+
+            if (Participante.PART_RUT == 0) {
+
+                tabladata.row.add(Participante).draw(false);
+
+            } else {
+
+                alert("editar participante");
+            }
+
+            $("#modalParticipantes").modal("hide");
+
+            @*alert("si");
             var Participante = {
                 PART_RUT: $("txtRut").val(),
                 PART_NOMBRE: $("txtNombre").val(),
@@ -278,7 +303,7 @@
             
             
             jQuery.ajax({
-                url: '@Url.Action("AñadirPart","Home")',
+                url: '@Url.Action("AñadirPart","Home")', 
                 type: "POST",
                 data: JSON.stringify({objeto:Usuario}),
                 dataType: "json",
@@ -293,7 +318,7 @@
                 beforeSend: function () {
 
                 },
-            });
+            });*@
             
             
         }

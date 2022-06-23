@@ -71,11 +71,11 @@ namespace CompromisoAlternativo.Controllers
             return Json(new { data = olista }, JsonRequestBehavior.AllowGet);
         }
         //INTENTO DE AGREGAR PARTICIPANTES EXTERNOS
-        [HttpGet]
-        public JsonResult AñadirPart(Participantes objeto)
+        [HttpPost]
+        public JsonResult AñadirPart(Participantes objeto, out string Mensaje)
         {
             object resultado;
-            resultado = new CN_Participantes().AñadirPart(objeto);
+            resultado = new CN_Participantes().AñadirPart(objeto, out Mensaje);
 
 
             return Json(new { resultado = resultado }, JsonRequestBehavior.AllowGet);

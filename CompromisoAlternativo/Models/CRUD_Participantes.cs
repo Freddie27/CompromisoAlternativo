@@ -58,29 +58,40 @@ namespace CompromisoAlternativo.Models
             return lista;
         }
 
-        public bool AñadirPart(Participantes obj)
+        public int AñadirPart(Participantes obj, out string Mensaje)
         {
-            using (SqlConnection oconexion = new SqlConnection(ConexionBD.cn))
+            int idAutoGenerado = 0;
+
+            Mensaje = string.Empty;
+
+            try
             {
-                SqlCommand cmd = new SqlCommand("agregarPart", oconexion);
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (SqlConnection oconexion = new SqlConnection(ConexionBD.cn))
+                {
+                    SqlCommand cmd = new SqlCommand("addPart", oconexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@PART_RUT", obj.PART_RUT);
-                cmd.Parameters.AddWithValue("@PART_NOMBRE", obj.PART_NOMBRE);
-                cmd.Parameters.AddWithValue("@PART_FONO", obj.PART_FONO);
-                cmd.Parameters.AddWithValue("@PART_EMAIL", obj.PART_EMAIL);
-                cmd.Parameters.AddWithValue("@PART_INSTITUCION", obj.PART_INSTITUCION);
+                    cmd.Parameters.AddWithValue("@PART_RUT", obj.PART_RUT);
+                    cmd.Parameters.AddWithValue("@PART_NOMBRE", obj.PART_NOMBRE);
+                    cmd.Parameters.AddWithValue("@PART_FONO", obj.PART_FONO);
+                    cmd.Parameters.AddWithValue("@PART_EMAIL", obj.PART_EMAIL);
+                    cmd.Parameters.AddWithValue("@PART_INSTITUCION", obj.PART_INSTITUCION);
 
 
-                oconexion.Open();
-                int i = cmd.ExecuteNonQuery();
-                oconexion.Close();
+                    oconexion.Open();
+                    cmd.ExecuteNonQuery();
 
-                if (i >= 1)
-                    return true;
-                else
-                    return false;
+                    idAutoGenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
+                    Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
+                }
+
             }
+            catch(Exception ex)
+            {
+                idAutoGenerado = 0;
+                Mensaje = ex.Message;
+            }
+            return idAutoGenerado;
         }
     }
 }
