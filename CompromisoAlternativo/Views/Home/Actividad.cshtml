@@ -306,17 +306,17 @@
 
 
             //Prototipo ajax enviar valselect
-            @*$.ajax({
+            $.ajax({
                 type: "POST",
                 url: '@Url.Action("AñadirPart", "Home")',
                 data: { selected: valSelect },
                 success: function (data) {
-                    // Stuff
+                   
                 },
                 error: function (data) {
                     // Stuff
                 }
-            });*@
+            });
 
 
 
@@ -330,13 +330,13 @@
                 PART_EMAIL: $("txtEmail").val(),
                 PART_INSTITUCION: $("txtInstitucion").val()
 
-            }
+            }*@
 
 
             jQuery.ajax({
                 url: '@Url.Action("AñadirPart","Home")',
                 type: "POST",
-                data: JSON.stringify({objeto:Usuario}),
+                data: JSON.stringify({objeto:Participante}),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -349,7 +349,7 @@
                 beforeSend: function () {
 
                 },
-            });*@
+            });
 
 
         }

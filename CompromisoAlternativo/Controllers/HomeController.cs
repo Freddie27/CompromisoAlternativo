@@ -71,15 +71,40 @@ namespace CompromisoAlternativo.Controllers
             return Json(new { data = olista }, JsonRequestBehavior.AllowGet);
         }
         //INTENTO DE AGREGAR PARTICIPANTES EXTERNOS
+        //[HttpPost]
+        //public JsonResult AñadirPart(Select objeto)
+        //{
+        //    object resultado;
+        //    resultado = new CN_Participantes().AñadirPart(objeto, out Mensaje);
+
+
+        //    return Json(new { resultado = resultado }, JsonRequestBehavior.AllowGet);
+        //}
         [HttpPost]
-        public JsonResult AñadirPart(Participantes objeto, out string Mensaje)
+        public JsonResult AñadirPart(Participantes objeto)
         {
             object resultado;
-            resultado = new CN_Participantes().AñadirPart(objeto, out Mensaje);
+            string mensaje = string.Empty;
+            resultado = new CN_Participantes().AñadirPart(objeto, out mensaje);
 
 
-            return Json(new { resultado = resultado }, JsonRequestBehavior.AllowGet);
+            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //INTENTO GENERAR ARRAY FUNCIONARIO
         [HttpGet]

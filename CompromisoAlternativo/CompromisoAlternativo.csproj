@@ -130,6 +130,7 @@
     <Compile Include="Models\Funcionario_test.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Participantes.cs" />
+    <Compile Include="Models\Select.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

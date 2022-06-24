@@ -68,7 +68,7 @@ namespace CompromisoAlternativo.Models
             {
                 using (SqlConnection oconexion = new SqlConnection(ConexionBD.cn))
                 {
-                    SqlCommand cmd = new SqlCommand("addPart", oconexion);
+                    SqlCommand cmd = new SqlCommand("agregarPart", oconexion);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@PART_RUT", obj.PART_RUT);
