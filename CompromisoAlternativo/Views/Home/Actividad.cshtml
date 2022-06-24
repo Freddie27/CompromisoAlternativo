@@ -35,36 +35,40 @@
                             </div>
                             <div class="modal-body mx-3">
                                 @* TXT ID PARA FILTRADO DE CREACION O EDICION *@
-                                <input id="txtId" type="hidden" value="0" />
+                                @*<input id="txtId" type="hidden" value="0" />*@
+                                <select id="selectId" name="selectId">
+                                    <option value="0" selected>Nuevo</option>
+                                    <option value="1">Editar</option>
+                                </select>
                                 <div class="form-group">
 
-                                        <div class="col-md-10">
-                                            <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                            <input type="text" class="form-control" id="txtRut" placeholder="99.999.999-9">
-                                        </div>
-
-                                        <div class="col-md-10">
-                                            <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
-                                            <input type="text" class="form-control" id="txtNombre" placeholder="Nombre1 Nombre2 Apellido1 Apellido2">
-                                        </div>
-
-                                        <div class="col-md-10">
-                                            <label for="exampleFormControlInput1" class="form-label">FONO</label>
-                                            <input type="text" class="form-control" id="txtFono" placeholder="+569 12345678">
-                                        </div>
-
-                                        <div class="col-md-10">
-                                            <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
-                                            <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com">
-                                        </div>
-
-                                        <div class="col-md-10">
-                                            <label for="exampleFormControlInput1" class="form-label">INSTITUCION</label>
-                                            <input type="text" class="form-control" id="txtInstitucion" placeholder="Institucion1">
-                                        </div>
+                                    <div class="col-md-10">
+                                        <label for="exampleFormControlInput1" class="form-label">RUT</label>
+                                        <input type="text" class="form-control" id="txtRut" placeholder="99.999.999-9">
                                     </div>
+
+                                    <div class="col-md-10">
+                                        <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
+                                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre1 Nombre2 Apellido1 Apellido2">
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <label for="exampleFormControlInput1" class="form-label">FONO</label>
+                                        <input type="text" class="form-control" id="txtFono" placeholder="+569 12345678">
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
+                                        <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com" required="required">
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <label for="exampleFormControlInput1" class="form-label">INSTITUCION</label>
+                                        <input type="text" class="form-control" id="txtInstitucion" placeholder="Institucion1">
+                                    </div>
+                                </div>
                                 <div class="modal-footer d-flex justify-content-center">
-                                    <button type="button"  class="btn btn-outline-secondary" onclick="Guardar()">Registrar</button>
+                                    <button type="button" class="btn btn-outline-secondary" onclick="Guardar()">Registrar</button>
                                 </div>
                             </div>
                         </div>
@@ -233,9 +237,11 @@
 
     });
 
+
         function abrirModal(json) {
 
-            $("#txtId").val(0);
+            $("#selectId").val("0").change();
+
             $("#txtRut").val("");
             $("#txtNombre").val("");
             $("#txtFono").val("");
@@ -243,7 +249,9 @@
             $("#txtInstitucion").val("");
 
             if (json != null) {
-            $("#txtId").val(json.PART_RUT);
+
+                $("#selectId").val("1").change();
+            
             $("#txtRut").val(json.PART_RUT);
             $("#txtNombre").val(json.PART_NOMBRE);
             $("#txtFono").val(json.PART_FONO);
@@ -254,8 +262,7 @@
 
          $("#modalParticipantes").modal("show");
         }
-
-        
+    
 
         $("#tabla tbody").on("click", '.btn-editar', function () {
 
@@ -268,31 +275,52 @@
 
         })
 
-        
+
         function Guardar() {
 
             var Participante = {
-                
+
                 PART_RUT: $("#txtRut").val(),
                 PART_NOMBRE: $("#txtNombre").val(),
                 PART_FONO: $("#txtFono").val(),
                 PART_EMAIL: $("#txtEmail").val(),
                 PART_INSTITUCION: $("#txtInstitucion").val()
-                 
+
             }
             console.log(Participante.PART_RUT);
-
-            if ($("#txtRut").val() != "") {
+            var valSelect = $('#selectId option:selected').val();
+            if (valSelect == 0) {
 
                 alert("Crear participante");
+
                 tabladata.row.add(Participante).draw(false);
-            } else {
+            } else if (valSelect == 1){
+
 
                 alert("editar participante");
-                
+
             }
 
             $("#modalParticipantes").modal("hide");
+
+
+
+            //Prototipo ajax enviar valselect
+            @*$.ajax({
+                type: "POST",
+                url: '@Url.Action("AñadirPart", "Home")',
+                data: { selected: valSelect },
+                success: function (data) {
+                    // Stuff
+                },
+                error: function (data) {
+                    // Stuff
+                }
+            });*@
+
+
+
+
 
             @*alert("si");
             var Participante = {
@@ -301,12 +329,12 @@
                 PART_FONO: $("txtFono").val(),
                 PART_EMAIL: $("txtEmail").val(),
                 PART_INSTITUCION: $("txtInstitucion").val()
-                
+
             }
-            
-            
+
+
             jQuery.ajax({
-                url: '@Url.Action("AñadirPart","Home")', 
+                url: '@Url.Action("AñadirPart","Home")',
                 type: "POST",
                 data: JSON.stringify({objeto:Usuario}),
                 dataType: "json",
@@ -322,8 +350,8 @@
 
                 },
             });*@
-            
-            
+
+
         }
 
     </script>
