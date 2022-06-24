@@ -35,7 +35,7 @@
                             </div>
                             <div class="modal-body mx-3">
                                 @* TXT ID PARA FILTRADO DE CREACION O EDICION *@
-                                <input id="txtId" type="text" value="0" />
+                                <input id="txtId" type="hidden" value="0" />
                                 <div class="form-group">
 
                                         <div class="col-md-10">
@@ -270,23 +270,26 @@
 
         
         function Guardar() {
+
             var Participante = {
-              
-                PART_RUT: $("txtRut").val(),
-                PART_NOMBRE: $("txtNombre").val(),
-                PART_FONO: $("txtFono").val(),
-                PART_EMAIL: $("txtEmail").val(),
-                PART_INSTITUCION: $("txtInstitucion").val()
-
+                
+                PART_RUT: $("#txtRut").val(),
+                PART_NOMBRE: $("#txtNombre").val(),
+                PART_FONO: $("#txtFono").val(),
+                PART_EMAIL: $("#txtEmail").val(),
+                PART_INSTITUCION: $("#txtInstitucion").val()
+                 
             }
+            console.log(Participante.PART_RUT);
 
-            if (Participante.PART_RUT == 0) {
+            if ($("#txtRut").val() != "") {
 
+                alert("Crear participante");
                 tabladata.row.add(Participante).draw(false);
-
             } else {
 
                 alert("editar participante");
+                
             }
 
             $("#modalParticipantes").modal("hide");
