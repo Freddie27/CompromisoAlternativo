@@ -15,56 +15,68 @@ namespace CompromisoAlternativo.Models
             return objObjeto.ListarParticipantes();
         }
 
-
-        //public int AñadirPart(Participantes obj, out string Mensaje)
-        //{
-        //    Mensaje = string.Empty;
-        //    if(string.IsNullOrEmpty(obj.PART_RUT) || string.IsNullOrWhiteSpace(obj.PART_RUT)) {
-        //        Mensaje = "El rut del usuario no puede ser vacío";
-        //    }
-
-        //    return objObjeto.AñadirPart(obj, out Mensaje);
-
-        //}
-
-        public int AñadirPart(Participantes obj, out string Mensaje)
+    public int PartAñadir(Participantes obj, out string Mensaje)
         {
-            int idAutoGenerado = 0;
+            Mensaje = string.Empty;
+
+            if (string.IsNullOrEmpty(obj.PART_RUT) || string.IsNullOrWhiteSpace(obj.PART_RUT))
+            {
+                Mensaje = "El Rut no puede estar vacio";
+            }
+            else if (string.IsNullOrEmpty(obj.PART_NOMBRE) || string.IsNullOrWhiteSpace(obj.PART_NOMBRE))
+            {
+                Mensaje = "El nombre no puede estar vacio";
+            }
+            else if (string.IsNullOrEmpty(obj.PART_INSTITUCION) || string.IsNullOrWhiteSpace(obj.PART_INSTITUCION))
+            {
+                Mensaje = "Debe ingresar una institucion";
+            }
+
+            if (string.IsNullOrEmpty(Mensaje))
+            {
+                return objObjeto.PartAñadir(obj, out Mensaje);
+            }
+            else
+            {
+                return 0;
+            }
+
+
+            
+        }
+
+        public bool PartEditar(Participantes obj, out string Mensaje)
+        {
 
             Mensaje = string.Empty;
 
-            try
+            if (string.IsNullOrEmpty(obj.PART_RUT) || string.IsNullOrWhiteSpace(obj.PART_RUT))
             {
-                using (SqlConnection oconexion = new SqlConnection(ConexionBD.cn))
-                {
-                    SqlCommand cmd = new SqlCommand("agregarPart", oconexion);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@PART_RUT", obj.PART_RUT);
-                    cmd.Parameters.AddWithValue("@PART_NOMBRE", obj.PART_NOMBRE);
-                    cmd.Parameters.AddWithValue("@PART_FONO", obj.PART_FONO);
-                    cmd.Parameters.AddWithValue("@PART_EMAIL", obj.PART_EMAIL);
-                    cmd.Parameters.AddWithValue("@PART_INSTITUCION", obj.PART_INSTITUCION);
-
-
-                    oconexion.Open();
-                    cmd.ExecuteNonQuery();
-
-                    idAutoGenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
-                    Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
-                }
-
+                Mensaje = "El Rut no puede estar vacio";
             }
-            catch (Exception ex)
+            else if (string.IsNullOrEmpty(obj.PART_NOMBRE) || string.IsNullOrWhiteSpace(obj.PART_NOMBRE))
             {
-                idAutoGenerado = 0;
-                Mensaje = ex.Message;
+                Mensaje = "El nombre no puede estar vacio";
             }
-            return idAutoGenerado;
+            else if (string.IsNullOrEmpty(obj.PART_INSTITUCION) || string.IsNullOrWhiteSpace(obj.PART_INSTITUCION))
+            {
+                Mensaje = "Debe ingresar una institucion";
+            }
+
+            if (string.IsNullOrEmpty(Mensaje))
+            {
+                return objObjeto.PartEditar(obj, out Mensaje);
+            }
+            else
+            {
+                return false;
+            }
         }
 
-
-
+        public bool PartEliminar(int id, out string Mensaje)
+        {
+            return objObjeto.PartEliminar(id, out Mensaje);
+        }
 
 
     }

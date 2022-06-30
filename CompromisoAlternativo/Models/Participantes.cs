@@ -8,6 +8,9 @@ namespace CompromisoAlternativo.Models
 {
     public class Participantes
     {
+
+        public int PART_ID { get; set; }
+
         [Display(Name = "RUT")]
         public string PART_RUT { get; set; }
 

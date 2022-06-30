@@ -122,15 +122,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Actividad.cs" />
+    <Compile Include="Models\CN_Actividad.cs" />
     <Compile Include="Models\CN_Funcionario.cs" />
     <Compile Include="Models\CN_Participantes.cs" />
     <Compile Include="Models\ConexionBD.cs" />
+    <Compile Include="Models\CRUD_Actividad.cs" />
     <Compile Include="Models\CRUD_Funcionario.cs" />
     <Compile Include="Models\CRUD_Participantes.cs" />
     <Compile Include="Models\Funcionario_test.cs" />
     <Compile Include="Models\Funcionario.cs" />
+    <Compile Include="Models\JoinActividad.cs" />
     <Compile Include="Models\Participantes.cs" />
-    <Compile Include="Models\Select.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +386,12 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
+    <Content Include="Scripts\inputmask\inputmask.es6.js" />
+    <Content Include="Scripts\inputmask\inputmask.js" />
+    <Content Include="Scripts\inputmask\inputmask.min.js" />
+    <Content Include="Scripts\inputmask\jquery.inputmask.js" />
+    <Content Include="Scripts\inputmask\jquery.inputmask.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -410,6 +419,7 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Home\Inicio.cshtml" />
     <Content Include="Views\Home\Actividad.cshtml" />
+    <Content Include="Views\Home\Registro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,12 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Actividad";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-
-@*@using CompromisoAlternativo.Models;
-@model CompromisoAlternativo.Models.Participantes*@
-@*@model IEnumerable<CompromisoAlternativo.Models.Participantes>*@
 
 <div class="container pt-4">
     @using (Html.BeginForm())
@@ -21,9 +16,7 @@
             <div class="col-10 d-flex justify-content-around">
                 <button type="button" class="btn btn-outline-tertiary col-4" onclick="abrirModal()">Externos</button>
 
-
-                @*Popup Externos*@
-
+                @*MODAL EXTERNOS*@
                 <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -35,38 +28,56 @@
                             </div>
                             <div class="modal-body mx-3">
                                 @* TXT ID PARA FILTRADO DE CREACION O EDICION *@
-                                @*<input id="txtId" type="hidden" value="0" />*@
-                                <select id="selectId" name="selectId">
-                                    <option value="0" selected>Nuevo</option>
-                                    <option value="1">Editar</option>
-                                </select>
+                                <input id="txtId" type="text" />
+                                @*<select id="selectId" name="selectId">*@
+                                @*<option value="0" selected>Nuevo</option>
+                                        <option value="1">Editar</option>
+                                    </select>*@
                                 <div class="form-group">
 
                                     <div class="col-md-10">
                                         <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                        <input type="text" class="form-control" id="txtRut" placeholder="99.999.999-9">
+                                        <input type="text" class="form-control" id="txtRut">
                                     </div>
 
                                     <div class="col-md-10">
                                         <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
-                                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre1 Nombre2 Apellido1 Apellido2">
+                                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre Apellido1 Apellido2" autocomplete="off">
                                     </div>
 
                                     <div class="col-md-10">
                                         <label for="exampleFormControlInput1" class="form-label">FONO</label>
-                                        <input type="text" class="form-control" id="txtFono" placeholder="+569 12345678">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupPrepend2">+569</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="txtFono" autocomplete="off" required>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-10">
                                         <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
-                                        <input type="email" class="form-control" id="txtEmail" placeholder="name@example.com" required="required">
+                                        <input type="email" class="form-control" id="txtEmail" autocomplete="off" required="required">
                                     </div>
 
                                     <div class="col-md-10">
                                         <label for="exampleFormControlInput1" class="form-label">INSTITUCION</label>
-                                        <input type="text" class="form-control" id="txtInstitucion" placeholder="Institucion1">
+                                        <input type="text" class="form-control" id="txtInstitucion" placeholder="Institucion1" autocomplete="off">
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                                            Esta es una alerta
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button type="button" class="btn btn-outline-secondary" onclick="Guardar()">Registrar</button>
                                 </div>
@@ -74,13 +85,41 @@
                         </div>
                     </div>
                 </div>
+
+
                 <button type="button" class="btn btn-outline-tertiary col-4" data-toggle="modal" data-target="#modalFuncionariosform">Funcionarios</button>
+                @*MODAL FUNCIONARIOS*@
+                <div class="modal fade" id="modalFuncionariosform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Elegir Funcionario</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <form autocomplete="off" action="#">
+                                    <div class="autocomplete" style="width:300px;">
+                                        <input id="myInput" type="text" name="myCountry" placeholder="Ingrese Nombre Funcionario">
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="btn btn-outline-secondary">Añadir Funcionario</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
 
-        @*Aquí añadir tabla*@
-        <table id="tabla" class="display cell-border" width="100%">
+        //DATATABLE #tabla
+
+        <table id="tabla" class="display cell-border pt-3" width="100%">
             <thead>
                 <tr>
                     <th>RUT</th>
@@ -91,70 +130,52 @@
                     <th></th>
                 </tr>
             </thead>
+            <tbody>
+            </tbody>
         </table>
 
-
-
-
-
-
+        //TIPO ACTIVIDAD
         <div class="row pt-4">
-
-            <label class="col-2">Motivo</label>
+            <label class="col-2">Tipo de actividad</label>
             <div class="col-10 d-flex justify-content-center">
-                <input class="form-control col-10" type="text" placeholder="Escriba aquí..." />
+                <select id ="selectActiId"  class="form-select col-10" aria-label="Default select example">
+                    <option value="0" selected>Seleccione una actividad</option>
+                    <option value="1">REUNION DIRECCION</option>
+                    <option value="2">LEY LOBBY</option>
+                    <option value="3">ATENCIONES GENERALES</option>
+                    <option value="4">COMITE ASESOR</option>
+                    <option value="5">REQUERIMIENTOS DE INFORMACION INTERNA</option>
+                    <option value="6">TRANSPARENCIA</option>
+                    <option value="7">REUNION EN TERRENO</option>
+                </select>
             </div>
         </div>
+
+        //MOTIVO
+        <div class="row pt-4">
+            <label class="col-2">Motivo</label>
+            <div class="col-10 d-flex justify-content-center">
+                <input id="txtMotivo" class="form-control col-10" type="text" placeholder="Escriba aquí..." />
+            </div>
+        </div>
+
+        //DETALLE DE LA REUNION
         <div class="row pt-4">
             <label class="col">Detalle de la reunion</label>
             <div class="col-10 d-flex justify-content-center">
-                <textarea class="form-control col-10" id="TxtAreaDetalle" rows="5" placeholder="Ingrese texto..."></textarea>
+                <textarea class="form-control col-10" id="txtDesarrollo" rows="5" placeholder="Ingrese texto..."></textarea>
             </div>
-        </div><div class="row pt-4">
+        </div>
+
+        //BOTON ABRIR MODAL COMPROMISOS
+        <div class="row pt-4">
             <label class="col" style="padding-top:18px;padding-bottom:18px;">Gestion de Compromisos</label>
             <div class="col-10 d-flex justify-content-center">
                 <button type="button" class="btn btn-outline-tertiary col-10" data-toggle="modal" data-target="#modalCompromisosForm">Añadir Compromiso</button>
             </div>
-        </div><div class="d-none row pt-4">
-
-        </div><div class="row pt-4">
-
-            <div class="col-12 d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary col-4">Añadir Actividad</button>
-            </div>
         </div>
-
-
-
-        @*Popup Funcionarios*@
-        <div class="modal fade" id="modalFuncionariosform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Elegir Funcionario</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <form autocomplete="off" action="#">
-                            <div class="autocomplete" style="width:300px;">
-                                <input id="myInput" type="text" name="myCountry" placeholder="Ingrese Nombre Funcionario">
-                            </div>
-                            <input type="submit">
-                        </form>
-
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-outline-secondary">Añadir Funcionario</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        @*Popup Añadir Compromiso*@
+         
+        //MODAL COMPROMISO
         <div class="modal fade" id="modalCompromisosForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -191,6 +212,15 @@
                 </div>
             </div>
         </div>
+
+
+        //BOTON AÑADIR COMPROMISO
+        <div class="row pt-4">
+            <div class="col-12 d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary col-4" onclick="GuardarActividad()">Añadir Actividad</button>
+            </div>
+        </div>
+
     }
 
 </div>
@@ -200,18 +230,26 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/Autcompletar.js"></script>
+<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
 
 @section scripts{
     <script>
-
         var tabladata;
+        var filaSeleccionada;
+        var tablaacti;
 
-
-
-    tabladata = $("#tabla").DataTable({
+        tabladata = $("#tabla").DataTable({
         responsive: true,
         ordering: false,
-        "ajax": {
+        //implementa busqueda
+        bFilter: false,
+        //Seleccionar tamaño de tabla
+        lengthChange: false,
+        //elegir pestaña de tabla
+        paginate:false,
+
+            "ajax": {
             url: '@Url.Action("ListarParticipantes", "Home")',
             type: "GET",
             dataType: "json"
@@ -238,37 +276,53 @@
     });
 
 
+
         function abrirModal(json) {
 
-            $("#selectId").val("0").change();
-
+            $("#txtId").val(0);
+            //test = $("#txtId").val();
+            //alert(test)
             $("#txtRut").val("");
             $("#txtNombre").val("");
-            $("#txtFono").val("");
+            $("#txtFono").val("")
             $("#txtEmail").val("");
             $("#txtInstitucion").val("");
 
+            $("#mensajeError").hide();
+
             if (json != null) {
 
-                $("#selectId").val("1").change();
-            
+            $("#txtId").val(json.PART_ID);
+            //test = $("#txtId").val();
+            //alert(test)
             $("#txtRut").val(json.PART_RUT);
             $("#txtNombre").val(json.PART_NOMBRE);
             $("#txtFono").val(json.PART_FONO);
             $("#txtEmail").val(json.PART_EMAIL);
             $("#txtInstitucion").val(json.PART_INSTITUCION);
+
             }
 
 
          $("#modalParticipantes").modal("show");
         }
-    
+       //VALIDACIONES VIA INPUTMASK
 
+
+        $("#txtRut").inputmask("99999999-*", {"placeholder":"12345678-9"});
+        $("#txtFono").inputmask("99999999", { "placeholder": "67054837" });
+        $("#txtEmail").inputmask("");
+
+
+
+        //Seleciona la fila en la que se dio click a btn editar y muestra la informacion de dicha fila
         $("#tabla tbody").on("click", '.btn-editar', function () {
 
             var filaSeleccionada = $(this).closest("tr");
 
             var data = tabladata.row(filaSeleccionada).data();
+
+
 
             console.log(data)
             abrirModal(data)
@@ -276,71 +330,62 @@
         })
 
 
-        function Guardar() {
 
+        function Guardar() {
+            //objeto participante
             var Participante = {
 
+                PART_ID: $("#txtId").val(),
                 PART_RUT: $("#txtRut").val(),
                 PART_NOMBRE: $("#txtNombre").val(),
                 PART_FONO: $("#txtFono").val(),
                 PART_EMAIL: $("#txtEmail").val(),
-                PART_INSTITUCION: $("#txtInstitucion").val()
-
-            }
-            console.log(Participante.PART_RUT);
-            var valSelect = $('#selectId option:selected').val();
-            if (valSelect == 0) {
-
-                alert("Crear participante");
-
-                tabladata.row.add(Participante).draw(false);
-            } else if (valSelect == 1){
-
-
-                alert("editar participante");
+                PART_INSTITUCION: $("#txtInstitucion").val(),
 
             }
 
-            $("#modalParticipantes").modal("hide");
+
+            //Falta implementar un filtre que use
+            // tabladata.row.add(Participante).draw(false);
+            //para añadir datos a la tabla de forma visual y luego hacer el llamado a ajax para ingresar a bd
 
 
-
-            //Prototipo ajax enviar valselect
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("AñadirPart", "Home")',
-                data: { selected: valSelect },
-                success: function (data) {
-                   
-                },
-                error: function (data) {
-                    // Stuff
-                }
-            });
-
-
-
-
-
-            @*alert("si");
-            var Participante = {
-                PART_RUT: $("txtRut").val(),
-                PART_NOMBRE: $("txtNombre").val(),
-                PART_FONO: $("txtFono").val(),
-                PART_EMAIL: $("txtEmail").val(),
-                PART_INSTITUCION: $("txtInstitucion").val()
-
-            }*@
-
-
+            // ajax envia objeto Participante y llama store procedure
             jQuery.ajax({
-                url: '@Url.Action("AñadirPart","Home")',
+                url: '@Url.Action("PartAñadir","Home")',
                 type: "POST",
                 data: JSON.stringify({objeto:Participante}),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    tabladata.row.add(Participante).draw(false);
+
+                    debugger;
+                    if (Participante.PART_ID == 0) {
+
+                        if (data.resultado != 0) {
+                            Participante.PART_ID = data.resultado;
+                            tabladata.row.add(Participante).draw(false);
+                            $("#modalParticipantes").Modal("hide");
+
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    } else {
+
+                        if (data.resultado) {
+                            //filaSeleccionada retorna null por lo que siempre sobrescribe 0, se soluciona abajo refrescando tabla
+                            tabladata.row(filaSeleccionada).data(Participante).draw(false);
+                            filaSeleccionada = null;
+                            $("#modalParticipantes").modal("hide");
+
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
                 },
                 error: function (error) {
                     console.log(error)
@@ -351,8 +396,65 @@
                 },
             });
 
-
+            $('#tabla').DataTable().ajax.reload();
+            $("#modalParticipantes").modal("hide");
         }
+
+
+
+        function GuardarActividad() {
+            //objeto participante
+           
+           
+
+            var Actividad = {
+
+                ACTI_ID: $("#actiId").val(),
+                ACTI_TIPO: $('#selectActiId option:selected').val(),
+                ACTI_MOTIVO: $("#txtMotivo").val(),
+                ACTI_DESARROLLO: $("#txtDesarrollo").val(),
+
+            }
+
+
+            //Falta implementar un filtre que use
+            // tabladata.row.add(Participante).draw(false);
+            //para añadir datos a la tabla de forma visual y luego hacer el llamado a ajax para ingresar a bd
+
+
+            // ajax envia objeto Participante y llama store procedure
+            jQuery.ajax({
+                url: '@Url.Action("ActiAñadir","Home")',
+                type: "POST",
+                data: JSON.stringify({objeto:Actividad}),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger;
+
+                    $("#actiId").val(""),
+                    $("#selectActiId").val("0").change(),
+                    $("#txtMotivo").val(""),
+                    $("#txtDesarrollo").val("")
+
+
+
+
+                },
+                error: function (error) {
+                    console.log(error)
+
+                },
+                beforeSend: function () {
+
+                },
+            });
+
+            //$('#tabla').DataTable().ajax.reload();
+            //$("#modalParticipantes").modal("hide");
+        }
+
+
 
     </script>
 }

@@ -39,6 +39,11 @@ namespace CompromisoAlternativo
                 "~/Content/sweetalert.css",
                 "~/Content/jquery-ui.css"
                 ));
+
+
+
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+            "~/Scripts/inputmask/jquery.inputmask.js"));
         }
     }
 }

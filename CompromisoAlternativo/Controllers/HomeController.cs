@@ -60,6 +60,13 @@ namespace CompromisoAlternativo.Controllers
 
         }
 
+        public ActionResult Registro()
+        {
+            return View();
+
+        }
+
+
         //LISTAR PARTICIPANTES
         [HttpGet]
         public JsonResult ListarParticipantes()
@@ -71,32 +78,59 @@ namespace CompromisoAlternativo.Controllers
             return Json(new { data = olista }, JsonRequestBehavior.AllowGet);
         }
         //INTENTO DE AGREGAR PARTICIPANTES EXTERNOS
-        //[HttpPost]
-        //public JsonResult AñadirPart(Select objeto)
-        //{
-        //    object resultado;
-        //    resultado = new CN_Participantes().AñadirPart(objeto, out Mensaje);
-
-
-        //    return Json(new { resultado = resultado }, JsonRequestBehavior.AllowGet);
-        //}
         [HttpPost]
-        public JsonResult AñadirPart(Participantes objeto)
+        public JsonResult PartAñadir(Participantes objeto)
         {
             object resultado;
             string mensaje = string.Empty;
-            resultado = new CN_Participantes().AñadirPart(objeto, out mensaje);
 
-
-            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+          if(objeto.PART_ID == 0)
+            {
+                resultado = new CN_Participantes().PartAñadir(objeto, out mensaje);
+            }
+            else
+            {
+                resultado= new CN_Participantes().PartEditar(objeto, out mensaje);
+            }
+          
+               
+                return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
 
 
 
 
+        [HttpGet]
+        public JsonResult ActiLeer()
+        {
+            List<Actividad> olista = new List<Actividad>();
+
+            olista = new CN_Actividad().ActiLeer();
+
+            return Json(new { data = olista }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult ActiAñadir(Actividad objeto)
+        {
+            object resultado;
+            string mensaje = string.Empty;
 
 
+            resultado = new CN_Actividad().ActiAñadir(objeto, out mensaje);
 
+            //if (objeto.ACTI_ID == 0)
+            //{
+            //    resultado = new CN_Actividad().ActiAñadir(objeto, out mensaje);
+            //}
+            //else
+            //{
+            //    resultado = new CN_Actividad().ActiEditar(objeto, out mensaje);
+            //}
+
+
+            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
 
 
 
