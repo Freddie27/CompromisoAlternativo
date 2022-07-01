@@ -37,7 +37,7 @@
 
                                     <div class="col-md-10">
                                         <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                        <input type="text" class="form-control" id="txtRut">
+                                        <input type="text" style=" opacity: 0.5" class="form-control" id="txtRut">
                                     </div>
 
                                     <div class="col-md-10">
@@ -49,9 +49,9 @@
                                         <label for="exampleFormControlInput1" class="form-label">FONO</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroupPrepend2">+569</span>
+                                                <span class="input-group-text" id="inputGroupPrepend2">+56</span>
                                             </div>
-                                            <input type="text" class="form-control" id="txtFono" autocomplete="off" required>
+                                            <input type="text" class="form-control" style=" opacity: 0.5" id="txtFono" autocomplete="off" required>
                                         </div>
                                     </div>
 
@@ -189,7 +189,7 @@
                         <div class="md-form mb-5">
                             <i class="fas fa-user prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Tarea</label>
-                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <input type="text" id="orangeForm-name" class="form-control validate ">
 
                         </div>
                         <div class="md-form mb-5">
@@ -239,6 +239,8 @@
         var filaSeleccionada;
         var tablaacti;
 
+        //SE UTILIZA PLUGIN TABLADATA PARA OBTENER VALORES Y MOSTRARLOS
+
         tabladata = $("#tabla").DataTable({
         responsive: true,
         ordering: false,
@@ -275,7 +277,7 @@
 
     });
 
-
+        //BLANQUEO DE CAMPOS O TOMAR INFORMACION PRESENTE EN LA FILA Y LUEGO ABRIR MODAL
 
         function abrirModal(json) {
 
@@ -306,33 +308,41 @@
 
          $("#modalParticipantes").modal("show");
         }
-       //VALIDACIONES VIA INPUTMASK
-
+       //VALIDACIONES VIA PLUGIN INPUTMASK
+       //https://github.com/RobinHerbots/Inputmask
 
         $("#txtRut").inputmask("99999999-*", {"placeholder":"12345678-9"});
-        $("#txtFono").inputmask("99999999", { "placeholder": "67054837" });
+        $("#txtFono").inputmask("999999999", { "placeholder": "967054837" });
         $("#txtEmail").inputmask("");
 
 
 
-        //Seleciona la fila en la que se dio click a btn editar y muestra la informacion de dicha fila
+        //Seleciona la fila en la que se dio click a editar y muestra la informacion de dicha fila
         $("#tabla tbody").on("click", '.btn-editar', function () {
 
             var filaSeleccionada = $(this).closest("tr");
 
             var data = tabladata.row(filaSeleccionada).data();
-
-
-
             console.log(data)
             abrirModal(data)
+        })
 
+        $("#tabla tbody").on("click", '.btn-eliminar', function () {
+
+            alert("Borrar")
+
+
+            //link borrar data table https://datatables.net/reference/api/row().remove()
+            //var filaSeleccionada = $(this).closest("tr");
+
+            //var data = tabladata.row(filaSeleccionada).data();
+            //console.log(data)
+            //abrirModal(data)
         })
 
 
-
         function Guardar() {
-            //objeto participante
+            //Crea objeto participante y transpasa datos de textbox
             var Participante = {
 
                 PART_ID: $("#txtId").val(),
@@ -345,13 +355,35 @@
             }
 
 
-            //Falta implementar un filtre que use
+            //Falta implementar un filtro que use
             // tabladata.row.add(Participante).draw(false);
             //para añadir datos a la tabla de forma visual y luego hacer el llamado a ajax para ingresar a bd
 
 
             // ajax envia objeto Participante y llama store procedure
-            jQuery.ajax({
+            debugger;
+            var Rut = $("#txtRut").val();
+            var Nombre = $("#txtNombre").val();
+            var Fono = $("#txtFono").val();
+            var Email = $("#txtEmail").val();
+            var Institucion = $("#txtInstitucion").val();
+
+            alert(Rut)
+            alert(Nombre)
+            alert(Institucion)
+
+
+            if ((Rut == '') && (Nombre == '') && (Institucion =='')) {
+                alert("Rellene todos los campos")
+            }
+            else if (Fono == '' || Email == '') {
+                alert(Nombre)
+
+                 alert("ingrese al menos un campo email o fono")
+
+            }
+            else {
+                  jQuery.ajax({
                 url: '@Url.Action("PartAñadir","Home")',
                 type: "POST",
                 data: JSON.stringify({objeto:Participante}),
@@ -376,9 +408,12 @@
 
                         if (data.resultado) {
                             //filaSeleccionada retorna null por lo que siempre sobrescribe 0, se soluciona abajo refrescando tabla
+
                             tabladata.row(filaSeleccionada).data(Participante).draw(false);
                             filaSeleccionada = null;
                             $("#modalParticipantes").modal("hide");
+                            $('#tabla').DataTable().ajax.reload();
+
 
                         } else {
                             $("#mensajeError").text(data.mensaje);
@@ -396,17 +431,16 @@
                 },
             });
 
-            $('#tabla').DataTable().ajax.reload();
+
             $("#modalParticipantes").modal("hide");
+
+
+            }
         }
 
 
 
         function GuardarActividad() {
-            //objeto participante
-           
-           
-
             var Actividad = {
 
                 ACTI_ID: $("#actiId").val(),

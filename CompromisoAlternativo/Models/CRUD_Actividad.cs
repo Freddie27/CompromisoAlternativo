@@ -31,10 +31,12 @@ namespace CompromisoAlternativo.Models
                                 {
 
                                     ACTI_ID = Convert.ToInt32(dr["ACTI_ID"]),
-                                    ACTI_TIPO = Convert.ToInt32(dr["ACTI_TIPO"]),
+                                    //ACTI_TIPO = Convert.ToInt32(dr["ACTI_TIPO"]),
+                                    TACT_NOMBRE = dr["TACT_NOMBRE"].ToString(),
                                     ACTI_MOTIVO = dr["ACTI_MOTIVO"].ToString(),
                                     ACTI_DESARROLLO = dr["ACTI_DESARROLLO"].ToString()
-                                   
+                                    
+
                                 }
 
                                 );

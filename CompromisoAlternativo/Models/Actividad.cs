@@ -20,6 +20,8 @@ namespace CompromisoAlternativo.Models
         [Display(Name = "DESARROLLO")]
         public string ACTI_DESARROLLO { get; set; }
 
-       
+
+        public string TACT_NOMBRE { get; set; }
+
     }
 }
