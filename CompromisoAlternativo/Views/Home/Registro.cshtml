@@ -32,6 +32,9 @@
         var tabladata;
         var filaSeleccionada;
 
+
+
+
         tabladata = $("#tablaActividad").DataTable({
         responsive: true,
         ordering: false,
@@ -40,7 +43,10 @@
         //Seleccionar tamaño de tabla
         lengthChange: false,
         //elegir pestaña de tabla
-        paginate:false,
+            paginate: false,
+            width: "20%",
+            
+            
 
             "ajax": {
             url: '@Url.Action("ActiLeer", "Home")',

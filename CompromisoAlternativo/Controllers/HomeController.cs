@@ -16,7 +16,7 @@ namespace CompromisoAlternativo.Controllers
             return View();
         }
 
-        //LOGIN DEL FUNCIONARIO
+        //LOGIN DEL FUNCIONARIO VIA SESSION
         [HttpPost]
         public ActionResult Login(Funcionario lc)
         {
