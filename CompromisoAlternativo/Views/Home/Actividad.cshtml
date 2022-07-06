@@ -52,7 +52,7 @@
 
                                     <div class="col-md-10">
                                         <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
-                                        <input type="email" class="form-control" id="txtEmail" autocomplete="off" required="required">
+                                        <input type="text" class="form-control" id="txtEmail" autocomplete="off" placeholder="ejemplo@ejemplo.cl" required="required">
                                     </div>
 
                                     <div class="col-md-10">
@@ -235,15 +235,16 @@
 
         //SE UTILIZA PLUGIN TABLADATA PARA OBTENER VALORES Y MOSTRARLOS
 
+
         tabladata = $("#tabla").DataTable({
         responsive: true,
         ordering: false,
         //implementa busqueda
         bFilter: false,
         //Seleccionar tamaño de tabla
-        lengthChange: false,
+        /*lengthChange: true,*/
         //elegir pestaña de tabla
-        paginate:false,
+        paginate:true,
 
             "ajax": {
             url: '@Url.Action("ListarParticipantes", "Home")',
@@ -251,9 +252,9 @@
             dataType: "json"
         },
         "columns": [
-            { "data": "PART_RUT", visible: false },
-            { "data": "PART_NOMBRE", visible: false },
-            { "data": "PART_FONO", visible: false },
+            { "data": "PART_RUT" },
+            { "data": "PART_NOMBRE"},
+            { "data": "PART_FONO" },
             { "data": "PART_EMAIL" },
             { "data": "PART_INSTITUCION" },
 
@@ -307,7 +308,7 @@
 
         $("#txtRut").inputmask("99999999-*", {"placeholder":"12345678-9"});
         $("#txtFono").inputmask("999999999", { "placeholder": "967054837" });
-        $("#txtEmail").inputmask("");
+        $("#txtEmail").inputmask("email").mask();
 
 
 
@@ -350,12 +351,6 @@
 
 
             // ajax envia objeto Participante y llama store procedure
-            debugger;
-            var Rut = $("#txtRut").val();
-            var Nombre = $("#txtNombre").val();
-            var Fono = $("#txtFono").val();
-            var Email = $("#txtEmail").val();
-            var Institucion = $("#txtInstitucion").val();
             
             //if ((Rut == '') || (Nombre == '') || (Institucion =='')) {
             //    alert("Rellene todos los campos")
@@ -379,7 +374,7 @@
                         if (data.resultado != 0) {
                             Participante.PART_ID = data.resultado;
                             tabladata.row.add(Participante).draw(false);
-                            $("#modalParticipantes").Modal("hide");
+                            $("#modalParticipantes").modal("hide");
 
                         } else {
                             $("#mensajeError").text(data.mensaje);
@@ -430,8 +425,6 @@
 
             }
 
-
-
             // ajax envia objeto Actividad y llama store procedure
             jQuery.ajax({
                 url: '@Url.Action("ActiAñadir","Home")',
@@ -440,16 +433,12 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger;
+                    
 
                     $("#actiId").val(""),
                     $("#selectActiId").val("0").change(),
                     $("#txtMotivo").val(""),
                     $("#txtDesarrollo").val("")
-
-
-
-
                 },
                 error: function (error) {
                     console.log(error)

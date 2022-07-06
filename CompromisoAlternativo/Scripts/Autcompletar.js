@@ -98,10 +98,10 @@ function autocomplete(inp, arr) {
 
 /*An array containing all the country names in the world:*/
 
-var json = '/Home/ListarFuncionario';
-countries = JSON.Parse(json)
+//   '/Home/ListarFuncionario'
 
-var countries2 = ["Cristian Otarola", "Ivan Barria", "Ignacio Toro", "ALVARO AGUILA A.", "ABEL ALMONACID O.", "ANA CRISTINA BARRIA V.", "ANGELICA MARTINEZ C.", "ANDREA FIGUEROA P.", "ANDREA CARREÑO U.", "ALEJANDRA MARTINEZ D.", "ANDREA MUÑOZ C.", "ALEJANDRO NILO Z.", "AMELIA OBREQUE C.", "ANGELA GONZALEZ Z.", "ANDRES REYES A.", "ALEXIS RIVAS D.", "ALEJANDRA SALAZAR A.", "MAURICIO SERRANO P.", "ALEJANDRO SOTO V.", "ALDO VALDERRAMA M.", "ALVARO VALENZUELA B.", "BERNARDO VERA C.", "CINDY ALMONACID L.", "CHRISTIAN ALVAREZ P.", "CLAUDIA ALVAREZ Q.", "CLAUDIA ALVAREZ S.", "CARLOS MANSILLA CARCAMO", "CARMEN BARRIA V."];
+
+var countries = ["Cristian Otarola", "Ivan Barria", "Ignacio Toro", "ALVARO AGUILA A.", "ABEL ALMONACID O.", "ANA CRISTINA BARRIA V.", "ANGELICA MARTINEZ C.", "ANDREA FIGUEROA P.", "ANDREA CARREÑO U.", "ALEJANDRA MARTINEZ D.", "ANDREA MUÑOZ C.", "ALEJANDRO NILO Z.", "AMELIA OBREQUE C.", "ANGELA GONZALEZ Z.", "ANDRES REYES A.", "ALEXIS RIVAS D.", "ALEJANDRA SALAZAR A.", "MAURICIO SERRANO P.", "ALEJANDRO SOTO V.", "ALDO VALDERRAMA M.", "ALVARO VALENZUELA B.", "BERNARDO VERA C.", "CINDY ALMONACID L.", "CHRISTIAN ALVAREZ P.", "CLAUDIA ALVAREZ Q.", "CLAUDIA ALVAREZ S.", "CARLOS MANSILLA CARCAMO", "CARMEN BARRIA V."];
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), countries);
